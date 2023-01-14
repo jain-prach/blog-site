@@ -20,12 +20,20 @@ const getItemInPath = (filePath: string) => {
     const {data, content} = matter(fileContent);
     return {...data, content} as Blog;
 }
+
+/* helper function to create slug */
+const getBlog = (name: string) => {
+    const blog = getItemInPath(join(BLOG_DIR, name));
+    blog.slug = name.replace(/\.md$/,"");
+    return blog;
+}
 const getBlogs = (): Blog[]=> {
     const names = getBlogFileNames();
 
-    const items = names.map(name => getItemInPath(join(BLOG_DIR, name)));
+    const items = names.map(getBlog);
     return items;
 }
+
 export {
     getBlogFileNames,
     getBlogs,
