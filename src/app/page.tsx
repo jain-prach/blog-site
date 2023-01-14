@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { use } from 'react';
-import { getBlogs } from "../lib/blogs";
 import "./globals.css";
+import { getBlogs } from "../lib/blogs";
 
 async function getInitialBlogs() {
   const blogs = getBlogs();
@@ -13,7 +13,8 @@ const Page: NextPage = () => {
     <div>
       { blogs.map((blog, i) =>
         <div key={i}>
-          {blog}
+          <div>{blog.title}</div> {/*no longer a simple string content but an actual object*/}
+          <div>{blog.description}</div>
           <div className="h-10" /> {/* serves as a separator */}
         </div>
       )}
