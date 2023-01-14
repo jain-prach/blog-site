@@ -9,7 +9,7 @@ const getFileNames = (dir: string): string[] => {
 }/* helper function */
 
 const getBlogFileNames = () => {
-    return getFileNames(getDir("/content/blogs")); /* src/ */
+    return getFileNames(getDir("/src/content/blog")); /* src/ */
 }
 
 export {
