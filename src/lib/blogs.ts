@@ -3,7 +3,18 @@ import { join } from "path";
 import fs from "fs"; /* file system */
 import matter from "gray-matter";
 import { Blog } from "@/interfaces/Blog";
+import { remark } from "remark";
+import html from "remark-html";
+import remarkGfm from "remark-gfm";
 
+const markdownToHTML = async (markdown: string) => {
+    const result = await remark()
+        .use(html)
+        .use(remarkGfm)
+        .process(markdown);
+
+    return result.toString();    
+}
 const getDir = (path: string) => join(process.cwd(), path); /* get Directory process.cwd = returns the name of the current working directory */
 const BLOG_DIR = getDir("/src/content/blog");
 const getFileNames = (dir: string): string[] => { 
@@ -28,9 +39,11 @@ const getBlog = (name: string) => {
     return blog;
 }
 
-const getBlogBySlug = (slug: string) => {
+const getBlogBySlug = async (slug: string) => {
     const fileName = slug + ".md";
-    return getBlog(fileName);
+    const blog = getBlog(fileName);
+    blog.content = await markdownToHTML(blog.content);
+    return blog;
 }
 const getBlogs = (): Blog[]=> {
     const names = getBlogFileNames();
