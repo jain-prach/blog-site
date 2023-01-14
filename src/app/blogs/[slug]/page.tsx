@@ -16,7 +16,7 @@ const getInitialBlog = async (slug:string) => {
 const BlogDetail: NextPage<Props> = ({params}) => {
     const blog = use(getInitialBlog(params.slug));
     return (
-        <div>
+        <div className="w-2/3 m-auto">
             <article className="prose lg:prose-xl">
                 <div dangerouslySetInnerHTML={{__html: blog.content}}/>
             </article>
