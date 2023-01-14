@@ -1,16 +1,22 @@
 import { NextPage } from 'next';
 import { use } from 'react';
-import { getBlogFileNames } from "../lib/blogs";
+import { getBlogs } from "../lib/blogs";
+import "./globals.css";
 
-async function getBlogs() {
-  const fileNames = getBlogFileNames();
-  return fileNames;
+async function getInitialBlogs() {
+  const blogs = getBlogs();
+  return blogs;
 }
 const Page: NextPage = () => {
-  const names = use(getBlogs());
+  const blogs = use(getInitialBlogs());
   return (
     <div>
-      {JSON.stringify(names)}
+      { blogs.map((blog, i) =>
+        <div key={i}>
+          {blog}
+          <div className="h-10" /> {/* serves as a separator */}
+        </div>
+      )}
     </div>
   )
 }
