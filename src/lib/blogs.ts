@@ -27,6 +27,11 @@ const getBlog = (name: string) => {
     blog.slug = name.replace(/\.md$/,"");
     return blog;
 }
+
+const getBlogBySlug = (slug: string) => {
+    const fileName = slug + ".md";
+    return getBlog(fileName);
+}
 const getBlogs = (): Blog[]=> {
     const names = getBlogFileNames();
 
@@ -37,4 +42,5 @@ const getBlogs = (): Blog[]=> {
 export {
     getBlogFileNames,
     getBlogs,
+    getBlogBySlug,
 }

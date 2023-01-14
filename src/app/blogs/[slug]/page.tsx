@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { getBlogs } from "../../../lib/blogs";
+import { use } from 'react';
+import { getBlogBySlug, getBlogs } from "../../../lib/blogs";
 
 interface Params extends ParsedUrlQuery {
     slug: string;
@@ -8,10 +9,15 @@ interface Params extends ParsedUrlQuery {
 type Props = {
     params: Params;
 }
+const getInitialBlog = async (slug:string) => {
+    const blog = getBlogBySlug(slug);
+    return blog;
+}
 const BlogDetail: NextPage<Props> = ({params}) => {
+    const blog = use(getInitialBlog(params.slug));
     return (
         <div>
-            Generic Page - {params.slug}
+            {blog.content}
         </div>
     )
 }
