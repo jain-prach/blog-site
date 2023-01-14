@@ -9,6 +9,15 @@ async function getInitialBlogs() {
   const blogs = getBlogs();
   return blogs;
 }
+
+/*helper function to reduce the length of description*/
+const shortify = (text: string, maxLength = 60) => {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  return text.substring(0, maxLength) + "...";
+}
 const Page: NextPage = () => {
   const blogs = use(getInitialBlogs());
   // console.log(blogs); /* check in terminal what is printed by blogs*/
@@ -27,8 +36,8 @@ const Page: NextPage = () => {
                 className="h-full w-full object-cover object-center group-hover:opacity-75"
               />
             </div>
-            <h3 className="mt-4 text-sm text-gray-700">{blog.title}</h3>
-            <p className="mt-1 text-lg font-medium text-gray-900">{blog.description}</p>
+            <h3 className="mt-1 text-md font-medium text-gray-900">{blog.title}</h3>
+            <p className="mt-4 text-sm text-gray-700">{shortify(blog.description, 100)}</p>
           </Link>
         ))}
       </div>
