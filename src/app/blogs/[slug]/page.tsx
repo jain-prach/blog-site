@@ -17,7 +17,9 @@ const BlogDetail: NextPage<Props> = ({params}) => {
     const blog = use(getInitialBlog(params.slug));
     return (
         <div>
-            <div dangerouslySetInnerHTML={{__html: blog.content}}/>
+            <article className="prose lg:prose-xl">
+                <div dangerouslySetInnerHTML={{__html: blog.content}}/>
+            </article>
         </div>
     )
 }
